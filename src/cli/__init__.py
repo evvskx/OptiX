@@ -54,7 +54,7 @@ class CLI:
         lines.append("|" + " " * (box_width - 2) + "|")
         title = Fore.YELLOW + Style.BRIGHT + "OptiX" + Style.RESET_ALL
         lines.append("|" + self.center_text(title, box_width - 2) + "|")
-        desc = "An advanced, fast, one-click Windows optimizer."
+        desc = "An advanced, fast, one-click Windows optimizer"
         lines.append("|" + self.center_text(desc, box_width - 2) + "|")
         lines.append("|" + " " * (box_width - 2) + "|")
         for i, option in enumerate(self.options):
