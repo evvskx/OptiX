@@ -142,7 +142,9 @@ class CLI:
                     sys.stdout.flush()
 
         print(Fore.GREEN + Style.BRIGHT + "\nOptiX has optimized your PC successfully!" + Style.RESET_ALL)
-        os.system('shutdown -r -f -t 15 -c "Your PC is going to restart to apply Thor\'s optimizations."')
+        os.system('shutdown -r -f -t 15 -c "Your PC is going to restart to apply OptiX\'s optimizations."')
+
+        sys.exit(1)
 
 if __name__ == "__main__":
     cli = CLI()
