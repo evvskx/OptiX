@@ -13,13 +13,13 @@ set UPX="resources/upx"
     rmdir /q /s src\runner\__pycache__ > nul 2>&1
 
 :install
-    where pyinstaller >nul 2>&1
+    where PyInstaller >nul 2>&1
     if %errorlevel% neq 0 (
-        pip install pyinstaller
+        py -3.13 pip install PyInstaller
     )
 
 :build
-    pyinstaller resources\.spec
+    py -3.13 -m PyInstaller resources\.spec
 
     cls
 

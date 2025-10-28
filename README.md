@@ -33,7 +33,7 @@ No bloat, no nonsense — just pure optimization.
 
 ## ❓ How to run
 
-1. Download [Python <3.13](https://www.python.org/downloads/release/python-3138/) (some libraries are still not compatible with 14)
+1. Download [Python <3.13](https://www.python.org/downloads/release/python-3138/) (GUI won't work on newer versions)
 2. Clone the repo
 ```
 git clone https://github.com/evvskx/OptiX.git
@@ -47,5 +47,10 @@ py -3.13 -m pip install -r requirements
 py -3.13 main.py
 ```
 - **You're all set!**
+
+To build the project, just type in the terminal:
+```
+build
+```
 
 ---
