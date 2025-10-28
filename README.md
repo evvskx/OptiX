@@ -12,13 +12,11 @@
 **OptiX** is a lightweight and intelligent performance tool designed to clean, tune, and speed up your Windows system safely — all with a single click.  
 No bloat, no nonsense — just pure optimization.
 
----
 
 ## 🖼️ Before / After
 
 ![Before & After](https://i.imgur.com/nISRZ1P.png)
 
----
 
 ## 🚀 Features
   
@@ -27,10 +25,27 @@ No bloat, no nonsense — just pure optimization.
 - 🔒 **Privacy Tweaks** – Disables telemetry and unwanted data collection.  
 - 🧠 **Adaptive Modes** – Automatically adjusts optimization for desktops, laptops, or gaming rigs.
 
----
-
 ## 🧩 Requirements
 
 - Windows 10 / 11  
 - PowerShell 5.1+ or PowerShell Core  
-- Administrator privileges recommended
+- Administrator privileges
+
+## ❓ How to run
+
+1. Download [Python <3.13](https://www.python.org/downloads/release/python-3138/) (some libraries are still not compatible with 14)
+2. Clone the repo
+```
+git clone https://github.com/evvskx/OptiX.git
+```
+3. Install requirements
+```
+py -3.13 -m pip install -r requirements
+```
+5. Run
+```
+py -3.13 main.py
+```
+- **You're all set!**
+
+---

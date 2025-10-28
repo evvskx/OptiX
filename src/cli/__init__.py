@@ -5,8 +5,8 @@ import msvcrt
 import threading
 import time
 from colorama import init, Fore, Back, Style
-from jobs import jobs
-from runner import Runner
+from src.jobs import jobs
+from src.runner import Runner
 import ctypes
 
 class CLI:

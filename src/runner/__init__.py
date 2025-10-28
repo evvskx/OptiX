@@ -6,7 +6,7 @@ class Runner:
     def __init__(self):
         self.temp_dir = os.path.join(os.getenv("TEMP"), "OptiX", "Temp")
         os.makedirs(self.temp_dir, exist_ok=True)
-        self.log_file = os.path.join(self.temp_dir, datetime.datetime.now().strftime("Thor_%Y%m%d.txt"))
+        self.log_file = os.path.join(self.temp_dir, datetime.datetime.now().strftime("Opti_%Y%m%d.txt"))
 
     def run(self, command):
         proc = subprocess.Popen(
