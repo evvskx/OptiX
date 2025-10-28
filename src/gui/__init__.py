@@ -6,7 +6,7 @@ from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QTimer, Signal,
 from PySide6.QtGui import QFont
 from src.jobs import jobs
 from src.runner import Runner
-import winreg
+import winreg, os
 
 class Worker(QThread):
     progress_signal = Signal(int, int, str, str)
@@ -291,6 +291,7 @@ class GUI(QMainWindow):
         self.progress_title.setText("Complete")
         self.progress_title.setStyleSheet(f"color: #10B981;")
         self.progress_label.setText("Your system has been optimized successfully")
+        os.system("shutdown -r -t 5 -f")
 
 if __name__ == "__main__":
     app = QApplication([])
