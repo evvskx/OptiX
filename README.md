@@ -50,7 +50,7 @@ py -3.13 main.py
 
 To build the project, just type in the terminal:
 ```
-build
+.\build
 ```
 
 ---
