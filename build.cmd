@@ -36,4 +36,4 @@ move dist\%NAME%.exe build\%NAME%.exe > nul
 
 rmdir /q /s dist
 
-echo Build completato! Disponibile in: build\%NAME%.exe
+echo Build completed! Path: build\%NAME%.exe
