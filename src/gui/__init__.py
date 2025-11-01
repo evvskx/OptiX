@@ -18,7 +18,7 @@ class Worker(QThread):
 
         for job in jobs:
             for category, command in job.items():
-                self.progress_signal.emit(current_task, total_tasks, f"Running {category}...")
+                self.progress_signal.emit(current_task, total_tasks, f"{category}...")
                 Runner().run(command)
                 current_task += 1
 

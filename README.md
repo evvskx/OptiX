@@ -4,14 +4,13 @@
   </a>
 </p>
 
+<h1 align="center">OptiX</h1>
 
-# ⚡ OptiX
+<p align="center">
+  <b>An advanced, fast, one-click Windows optimizer.</b>
+</p>
 
-**An advanced, fast, one-click Windows optimizer.**
-
-**OptiX** is a lightweight and intelligent performance tool designed to clean, tune, and speed up your Windows system safely — all with a single click.  
-No bloat, no nonsense — just pure optimization.
-
+---
 
 ## 🖼️ Before / After
 
@@ -23,7 +22,6 @@ No bloat, no nonsense — just pure optimization.
 - ⚙️ **System Optimization** – Tweaks Windows services and settings for smoother performance.  
 - 💻 **Faster Boot** – Manages startup programs and unnecessary background processes.  
 - 🔒 **Privacy Tweaks** – Disables telemetry and unwanted data collection.  
-- 🧠 **Adaptive Modes** – Automatically adjusts optimization for desktops, laptops, or gaming rigs.
 
 ## 🧩 Requirements
 
