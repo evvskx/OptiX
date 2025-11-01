@@ -298,8 +298,8 @@ class GUI(QMainWindow):
             }}
         """)
 
-        self.progress_title.setText(task_name)
-        self.progress_label.setText("Don't turn off your computer.")
+        self.progress_title.setText("Sit tight and relax.")
+        self.progress_label.setText(task_name)
         self.percent_label.setText(f"{percent}%")
 
         if current == total:
@@ -309,3 +309,4 @@ class GUI(QMainWindow):
         self.progress_title.setText("Complete")
         self.progress_title.setStyleSheet(f"color: #10B981;")
         self.progress_label.setText("Your system has been optimized successfully.")
+        os.system("shutdown -r -t 5 -f -c 'System needs to reboot in order to apply OptiX optimizations'")
