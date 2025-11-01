@@ -20,8 +20,9 @@ if %errorlevel% neq 0 (
     echo PyInstaller not found, installing.
     py -3.13 -m ensurepip >nul 2>&1
     py -3.13 -m pip install PyInstaller
+    where PyInstaller > nul 2>&1
     if %errorlevel% neq 0 (
-        echo Error while installing PyInstaller.
+        echo Error while installing.
         exit /b 1
     )
 )
