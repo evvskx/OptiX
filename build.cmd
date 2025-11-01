@@ -3,28 +3,36 @@
 set NAME=OptiX
 set ICON="resources/icon.ico"
 
-:cleanup
-    rmdir /q /s dist > nul 2>&1
-    rmdir /q /s build > nul 2>&1
+rmdir /q /s dist > nul 2>&1
+rmdir /q /s build > nul 2>&1
+rmdir /q /s src\cli\__pycache__ > nul 2>&1
+rmdir /q /s src\jobs\__pycache__ > nul 2>&1
+rmdir /q /s src\runner\__pycache__ > nul 2>&1
 
-    rmdir /q /s src\cli\__pycache__ > nul 2>&1
-    rmdir /q /s src\jobs\__pycache__ > nul 2>&1
-    rmdir /q /s src\runner\__pycache__ > nul 2>&1
+where py > nul 2>&1
+if %errorlevel% neq 0 (
+    echo Python not installed.
+    exit /b 1
+)
 
-:install
-    where PyInstaller >nul 2>&1
+where PyInstaller >nul 2>&1
+if %errorlevel% neq 0 (
+    echo PyInstaller not found, installing.
+    py -3.13 -m ensurepip >nul 2>&1
+    py -3.13 -m pip install PyInstaller
     if %errorlevel% neq 0 (
-        py -3.13 pip install PyInstaller
+        echo Error while installing PyInstaller.
+        exit /b 1
     )
+)
 
-:build
-    py -3.13 -m PyInstaller resources\.spec
+py -3.13 -m PyInstaller resources\.spec
 
-    cls
+cls
+rmdir /q /s build > nul 2>&1
+mkdir build > nul 2>&1
+move dist\%NAME%.exe build\%NAME%.exe > nul
 
-    rmdir /q /s build > nul 2>&1
-    mkdir build > nul 2>&1
-    move dist\%NAME%.exe build\%NAME%.exe > nul
-    rmdir /q /s dist
+rmdir /q /s dist
 
-    echo Build complete! Available in: build\%NAME%.exe
+echo Build completato! Disponibile in: build\%NAME%.exe
