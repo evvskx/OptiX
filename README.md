@@ -10,6 +10,8 @@
   <b>An advanced, fast, one-click Windows optimizer.</b>
 </p>
 
+---
+
 ## 🖼️ Before / After
 
 ![Before & After](https://i.imgur.com/nISRZ1P.png)
