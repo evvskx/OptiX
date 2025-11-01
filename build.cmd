@@ -2,7 +2,6 @@
 
 set NAME=OptiX
 set ICON="resources/icon.ico"
-set UPX="resources/upx"
 
 :cleanup
     rmdir /q /s dist > nul 2>&1

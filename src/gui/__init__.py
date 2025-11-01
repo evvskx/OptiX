@@ -6,23 +6,26 @@ from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QTimer, Signal,
 from PySide6.QtGui import QFont
 from src.jobs import jobs
 from src.runner import Runner
-import winreg, os
+import winreg, os, time, random
+
 
 class Worker(QThread):
-    progress_signal = Signal(int, int, str, str)
+    progress_signal = Signal(int, int, str)
 
     def run(self):
-        total_tasks = sum(len(tasks) for job in jobs for tasks in job.values())
+        total_tasks = sum(len(job) for job in jobs)
         current_task = 0
-        for job in jobs:
-            for category, tasks in job.items():
-                for action, command in tasks.items():
-                    self.progress_signal.emit(current_task, total_tasks, category, f"{action}...")
-                    Runner().run(command)
-                    current_task += 1
-        self.progress_signal.emit(total_tasks, total_tasks, "", "Optimization Complete!")
 
-class CustomTitleBar(QWidget):
+        for job in jobs:
+            for category, command in job.items():
+                self.progress_signal.emit(current_task, total_tasks, f"Running {category}...")
+                Runner().run(command)
+                current_task += 1
+
+        self.progress_signal.emit(total_tasks, total_tasks, "Optimization Complete!")
+
+
+class Title(QWidget):
     def __init__(self, parent=None, bg_color="#202020", text_color="white"):
         super().__init__(parent)
         self.parent = parent
@@ -93,6 +96,7 @@ class CustomTitleBar(QWidget):
     def mouseReleaseEvent(self, event):
         self.isDragging = False
 
+
 class GUI(QMainWindow):
     def is_dark_mode(self):
         try:
@@ -132,7 +136,7 @@ class GUI(QMainWindow):
         self.main_layout = QVBoxLayout(self.central)
         self.main_layout.setContentsMargins(0, 0, 0, 0)
         self.main_layout.setSpacing(0)
-        self.title_bar = CustomTitleBar(self, self.bg_color, self.text_color)
+        self.title_bar = Title(self, self.bg_color, self.text_color)
         self.main_layout.addWidget(self.title_bar)
         self.stack = QStackedWidget()
         self.stack.setStyleSheet(f"background-color: {self.bg_color};")
@@ -241,17 +245,20 @@ class GUI(QMainWindow):
         progress_layout.addWidget(self.progress_label)
         progress_layout.addSpacing(8)
         self.progress_bar = QProgressBar()
-        self.progress_bar.setFixedHeight(4)
+        self.progress_bar.setFixedHeight(8)
         self.progress_bar.setTextVisible(False)
+        self.progress_bar.setRange(0, 100)
+        self.progress_bar.setValue(0)
         self.progress_bar.setStyleSheet(f"""
             QProgressBar {{
                 border: none;
-                border-radius: 2px;
+                border-radius: 4px;
                 background-color: {self.border_color};
             }}
             QProgressBar::chunk {{
                 background-color: {self.accent_color};
-                border-radius: 2px;
+                border-radius: 4px;
+                width: 1px;
             }}
         """)
         progress_layout.addWidget(self.progress_bar)
@@ -273,27 +280,32 @@ class GUI(QMainWindow):
         self.worker.progress_signal.connect(self.update_progress)
         self.worker.start()
 
-    def update_progress(self, current, total, category, task_name=""):
+    def update_progress(self, current, total, task_name=""):
         percent = int((current / total) * 100)
-        anim = QPropertyAnimation(self.progress_bar, b"value")
-        anim.setDuration(200)
-        anim.setStartValue(self.progress_bar.value())
-        anim.setEndValue(percent)
-        anim.setEasingCurve(QEasingCurve.OutCubic)
-        anim.start()
-        self.progress_title.setText(category if category else "Optimizing")
-        self.progress_label.setText(task_name)
+        
+        self.progress_bar.setValue(percent)
+
+
+        self.progress_bar.setStyleSheet(f"""
+            QProgressBar {{
+                border: none;
+                border-radius: 4px;
+                background-color: {self.border_color};
+            }}
+            QProgressBar::chunk {{
+                background-color: {self.accent_color};
+                border-radius: 4px;
+            }}
+        """)
+
+        self.progress_title.setText(task_name)
+        self.progress_label.setText("Don't turn off your computer.")
         self.percent_label.setText(f"{percent}%")
+
         if current == total:
             QTimer.singleShot(300, self.show_completion)
 
     def show_completion(self):
         self.progress_title.setText("Complete")
         self.progress_title.setStyleSheet(f"color: #10B981;")
-        self.progress_label.setText("Your system has been optimized successfully")
-        os.system("shutdown -r -t 5 -f")
-
-if __name__ == "__main__":
-    app = QApplication([])
-    gui = GUI()
-    app.exec()
+        self.progress_label.setText("Your system has been optimized successfully.")

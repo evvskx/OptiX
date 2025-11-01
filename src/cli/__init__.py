@@ -124,22 +124,24 @@ class CLI:
         print(Fore.CYAN + Style.BRIGHT + "[ =========================== OptiX =========================== ]\n" + Style.RESET_ALL)
 
         for job in jobs:
-            for category, tasks in job.items():
+            for category, command in job.items():
                 print(Fore.YELLOW + f":: {category}" + Style.RESET_ALL)
-                for action, command in tasks.items():
-                    stop_spinner = False
-                    spinner_thread = threading.Thread(target=spinner, args=(action,), daemon=True)
-                    spinner_thread.start()
-                    current_job = Runner().run(command)
-                    stop_spinner = True
-                    spinner_thread.join()
 
-                    sys.stdout.write("\r" + " " * 80 + "\r")
-                    if current_job:
-                        sys.stdout.write(Fore.WHITE + f"[ {Fore.GREEN}OK {Fore.WHITE}] :: {action}\n")
-                    else:
-                        sys.stdout.write(Fore.WHITE + f"[ {Fore.RED}NO {Fore.WHITE}] :: {action}\n")
-                    sys.stdout.flush()
+                spinner_thread = threading.Thread(target=spinner, args=(category,), daemon=True)
+                spinner_thread.start()
+
+                current_job = Runner().run(command)
+
+                stop_spinner = True
+                spinner_thread.join()
+
+                sys.stdout.write("\r" + " " * 80 + "\r")
+
+                if current_job:
+                    sys.stdout.write(Fore.WHITE + f"[ {Fore.GREEN}OK {Fore.WHITE}] :: {category}\n")
+                else:
+                    sys.stdout.write(Fore.WHITE + f"[ {Fore.RED}NO {Fore.WHITE}] :: {category}\n")
+                sys.stdout.flush()
 
         print(Fore.GREEN + Style.BRIGHT + "\nOptiX has optimized your PC successfully!" + Style.RESET_ALL)
         os.system('shutdown -r -f -t 15 -c "Your PC is going to restart to apply OptiX\'s optimizations."')
